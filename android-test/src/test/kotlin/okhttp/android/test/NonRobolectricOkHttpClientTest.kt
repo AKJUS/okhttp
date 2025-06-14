@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Block, Inc.
+ * Copyright (c) 2025 Block, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,22 +12,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
-package mockwebserver3.internal.duplex
+package okhttp.android.test
 
-import mockwebserver3.Stream
-import okhttp3.internal.http2.ErrorCode
-import okhttp3.internal.http2.Http2Stream
-import okio.buffer
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
-/** Adapt OkHttp's internal [Http2Stream] type to the public [Stream] type. */
-internal class RealStream(
-  private val http2Stream: Http2Stream,
-) : Stream {
-  override val requestBody = http2Stream.getSource().buffer()
-  override val responseBody = http2Stream.getSink().buffer()
-
-  override fun cancel() {
-    http2Stream.closeLater(ErrorCode.CANCEL)
-  }
-}
+/**
+ * Android test running with only stubs.
+ */
+@RunWith(JUnit4::class)
+class NonRobolectricOkHttpClientTest : BaseOkHttpClientUnitTest()
